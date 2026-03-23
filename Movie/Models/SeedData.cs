@@ -58,6 +58,49 @@ public static class SeedData
                     Genre = "Western",
                     Price = 3.99M,
                     Rank = 3
+                },
+
+                new Movie
+                {
+                    Title = "Die Hard",
+                    ReleaseDate = DateTime.Parse("1959-4-15"),
+                    Genre = "Action",
+                    Price = 13.99M,
+                    Rank = 10
+                },
+
+                new Movie
+                {
+                    Title = "Independence Day",
+                    ReleaseDate = DateTime.Parse("1959-4-15"),
+                    Genre = "Science Fiction",
+                    Price = 19.99M,
+                    Rank = 5
+                },
+
+                new Movie
+                {
+                    Title = "Power Rangers",
+                    ReleaseDate = DateTime.Parse("1959-4-15"),
+                    Genre = "Science Fiction",
+                    Price = 20.99M,
+                    Rank = 6
+                },
+                new Movie
+                {
+                    Title = "The Mask",
+                    ReleaseDate = DateTime.Parse("1959-4-15"),
+                    Genre = "Comedy",
+                    Price = 2.99M,
+                    Rank = 7
+                },
+                new Movie
+                {
+                    Title = "The Santa Claus",
+                    ReleaseDate = DateTime.Parse("1959-4-15"),
+                    Genre = "Western",
+                    Price = 3.99M,
+                    Rank = 8
                 }
             );
             context.SaveChanges();

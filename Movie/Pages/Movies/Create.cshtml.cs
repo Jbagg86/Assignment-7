@@ -14,14 +14,15 @@ namespace RazorPagesMovie.Pages.Movies
 {
     public class CreateModel : PageModel
     {
-        private readonly RazorPagesMovie.Data.RazorPagesMovieContext _context;
+        private readonly IMovieRepo _repo;
         private readonly IWebHostEnvironment _env;
 
-        public CreateModel(RazorPagesMovie.Data.RazorPagesMovieContext context, IWebHostEnvironment env)
+        public CreateModel(IMovieRepo repo, IWebHostEnvironment env)
         {
-            _context = context;
+            _repo = repo;
             _env = env;
         }
+
 
         public IActionResult OnGet()
         {
@@ -47,8 +48,7 @@ namespace RazorPagesMovie.Pages.Movies
                     HttpContext.Request.Form.Files[0]);
             }
 
-            _context.Movie.Add(Movie);
-            await _context.SaveChangesAsync();
+            await _repo.AddAsync(Movie);
 
             return RedirectToPage("./Index");
         }

@@ -9,19 +9,18 @@ using RazorPagesMovie.Data;
 using RazorPagesMovie.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-
 namespace RazorPagesMovie.Pages.Movies
 {
     public class IndexModel : PageModel
     {
-        private readonly RazorPagesMovie.Data.RazorPagesMovieContext _context;
+        private readonly IMovieRepo _repo;
 
-        public IndexModel(RazorPagesMovie.Data.RazorPagesMovieContext context)
+        public IndexModel(IMovieRepo repo)
         {
-            _context = context;
+            _repo = repo;
         }
 
-        public IList<RazorPagesMovie.Models.Movie> Movie { get; set; } = default!;
+        public IList<RazorPagesMovie.Models.Movie> Movie { get; set; } = new List<RazorPagesMovie.Models.Movie>();
 
         [BindProperty(SupportsGet = true)]
         public string? SearchString { get; set; }
@@ -33,31 +32,29 @@ namespace RazorPagesMovie.Pages.Movies
 
         public async Task OnGetAsync()
         {
-            // <snippet_search_linqQuery>
-            IQueryable<string> genreQuery = from m in _context.Movie
-                                            orderby m.Genre
-                                            select m.Genre;
-            // </snippet_search_linqQuery>
-
-            var movies = from m in _context.Movie
-                         select m;
+            var movies = (await _repo.GetAllAsync()).ToList();
 
             if (!string.IsNullOrEmpty(SearchString))
             {
-                movies = movies.Where(s => s.Title.Contains(SearchString));
+                movies = movies.Where(s => s.Title != null && s.Title.Contains(SearchString)).ToList();
             }
 
             if (!string.IsNullOrEmpty(MovieGenre))
             {
-                movies = movies.Where(x => x.Genre == MovieGenre);
+                movies = movies.Where(x => x.Genre == MovieGenre).ToList();
             }
 
-            // <snippet_search_selectList>
-            Genres = new SelectList(await genreQuery.Distinct().ToListAsync());
+            Genres = new SelectList(movies
+                .Select(m => m.Genre)
+                .Where(g => !string.IsNullOrEmpty(g))
+                .Distinct()
+                .OrderBy(g => g)
+                .ToList());
 
-            movies = movies.OrderBy(m => m.Rank);
-            // </snippet_search_selectList>
-            Movie = await movies.ToListAsync();
+            Movie = movies
+                .OrderBy(m => m.Rank)
+                .ThenBy(m => m.Title)
+                .ToList();
         }
     }
 }

@@ -17,15 +17,20 @@ builder.Services.AddDbContext<RazorPagesMovieContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("RazorPagesMovieContext") ?? throw new InvalidOperationException("Connection string 'RazorPagesMovieContext' not found.")));
 
 builder.Services.AddDefaultIdentity<IdentityUser>(
-		options => options.SignIn.RequireConfirmedAccount = false)
+        options => options.SignIn.RequireConfirmedAccount = false)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<RazorPagesMovieContext>();
+
+
+// *** HERE ARE OUR NEW LINES ***
+builder.Services.AddScoped<IMovieRepo, MovieRepoEf>();
+//builder.Services.AddSingleton<IMovieRepo, MovieRepoList>();
 
 // add this section to configure authorization options
 builder.Services.AddAuthorization(options =>
 {
-		// in our authorization options we add a policy
-		// that requires the user to have the admin role
+    // in our authorization options we add a policy
+    // that requires the user to have the admin role
     options.AddPolicy("AdminPolicy", policy =>
     {
         policy.RequireRole("Admin");
@@ -35,10 +40,10 @@ builder.Services.AddAuthorization(options =>
 // add this section to configure options for our razor pages
 builder.Services.AddRazorPages(options =>
 {
-		// secure anything in the Pages/Items folder 
-		// by assigning it the admin policy
-		// which we created above 
-		// saying it requires a user to have the admin role
+    // secure anything in the Pages/Items folder 
+    // by assigning it the admin policy
+    // which we created above 
+    // saying it requires a user to have the admin role
     options.Conventions.AuthorizeFolder("/Items", "AdminPolicy");
 });
 

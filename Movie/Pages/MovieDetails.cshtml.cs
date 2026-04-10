@@ -1,31 +1,25 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
 using RazorPagesMovie.Data;
-using RazorPagesMovie.Models;
 
 namespace RazorPagesMovie.Pages
 {
-    public class DetailsModel : PageModel
+    
+    public class Details2Model : PageModel
     {
-        private readonly RazorPagesMovieContext _context;
+        private readonly IMovieRepo _repo;
 
-        public DetailsModel(RazorPagesMovieContext context)
+        public Details2Model(IMovieRepo repo)
         {
-            _context = context;
+            _repo = repo;
         }
 
         public RazorPagesMovie.Models.Movie Movie { get; set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var movie = await _context.Movie.FirstOrDefaultAsync(m => m.Id == id);
-
+            var movie = await _repo.GetByIdAsync(id);
             if (movie == null)
             {
                 return NotFound();
@@ -34,5 +28,12 @@ namespace RazorPagesMovie.Pages
             Movie = movie;
             return Page();
         }
+
+        // you can only have OnGet or OnGetAsync, not both at same time
+        //public IActionResult OnGet(int id)
+        //{
+        //    MovieObject = _repo.GetById(id);
+        //    return Page();
+        //}
     }
 }

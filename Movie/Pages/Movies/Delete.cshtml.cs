@@ -12,12 +12,13 @@ namespace RazorPagesMovie.Pages.Movies
 {
     public class DeleteModel : PageModel
     {
-        private readonly RazorPagesMovie.Data.RazorPagesMovieContext _context;
+        private readonly IMovieRepo _repo;
 
-        public DeleteModel(RazorPagesMovie.Data.RazorPagesMovieContext context)
+        public DeleteModel(IMovieRepo repo)
         {
-            _context = context;
+            _repo = repo;
         }
+
 
         [BindProperty]
         public RazorPagesMovie.Models.Movie Movie { get; set; } = default!;
@@ -29,7 +30,7 @@ namespace RazorPagesMovie.Pages.Movies
                 return NotFound();
             }
 
-            var movie = await _context.Movie.FirstOrDefaultAsync(m => m.Id == id);
+            var movie = await _repo.GetByIdAsync(id.Value);
 
             if (movie is not null)
             {
@@ -48,12 +49,11 @@ namespace RazorPagesMovie.Pages.Movies
                 return NotFound();
             }
 
-            var movie = await _context.Movie.FindAsync(id);
+            var movie = await _repo.GetByIdAsync(id.Value);
             if (movie != null)
             {
                 Movie = movie;
-                _context.Movie.Remove(Movie);
-                await _context.SaveChangesAsync();
+                await _repo.DeleteAsync(Movie);
             }
 
             return RedirectToPage("./Index");

@@ -2,14 +2,14 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using RazorPagesMovie.Data;
-using RazorPagesMovie.Models;
+using Assignment9A.Data;
+using Assignment9A.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RazorPagesMovie.Pages.Movies
+namespace Assignment9A.Pages.Movies
 {
     [Authorize]
     public class DetailsModel : PageModel
@@ -21,7 +21,7 @@ namespace RazorPagesMovie.Pages.Movies
             _repo = repo;
         }
 
-        public RazorPagesMovie.Models.Movie Movie { get; set; } = default!;
+        public Assignment9A.Models.Movie Movie { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {

@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using RazorPagesMovie.Data;
+using Assignment9A.Data;
 
-namespace RazorPagesMovie.Pages
+namespace Assignment9A.Pages
 {
     
     public class Details2Model : PageModel
@@ -15,7 +15,7 @@ namespace RazorPagesMovie.Pages
             _repo = repo;
         }
 
-        public RazorPagesMovie.Models.Movie Movie { get; set; } = default!;
+        public Assignment9A.Models.Movie Movie { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int id)
         {

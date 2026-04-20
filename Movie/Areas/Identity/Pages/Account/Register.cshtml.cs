@@ -19,7 +19,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 
-namespace RazorPagesMovie.Areas.Identity.Pages.Account
+namespace Assignment9A.Areas.Identity.Pages.Account
 {
     public class RegisterModel : PageModel
     {

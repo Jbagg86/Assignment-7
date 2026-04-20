@@ -1,19 +1,19 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RazorPagesMovie.Data;
+using Assignment9A.Data;
 
-namespace RazorPagesMovie.Models;
+namespace Assignment9A.Models;
 
 public static class SeedData
 {
     public static void Initialize(IServiceProvider serviceProvider)
     {
-        using (var context = new RazorPagesMovieContext(
+        using (var context = new Assignment9AContext(
             serviceProvider.GetRequiredService<
-                DbContextOptions<RazorPagesMovieContext>>()))
+                DbContextOptions<Assignment9AContext>>()))
         {
             if (context == null || context.Movie == null)
             {
-                throw new ArgumentNullException("Null RazorPagesMovieContext");
+                throw new ArgumentNullException("Null Assignment9AContext");
             }
 
             // Look for any movies.

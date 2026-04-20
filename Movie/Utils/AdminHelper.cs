@@ -2,7 +2,7 @@
 
 
 
-namespace RazorPagesMovie.Utils
+namespace Assignment9A.Utils
 {
 
     static public class AdminHelper

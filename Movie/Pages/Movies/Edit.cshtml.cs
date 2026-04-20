@@ -2,15 +2,15 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using RazorPagesMovie.Data;
-using RazorPagesMovie.Models;
-using RazorPagesMovie.Utils;
+using Assignment9A.Data;
+using Assignment9A.Models;
+using Assignment9A.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RazorPagesMovie.Pages.Movies
+namespace Assignment9A.Pages.Movies
 {
     public class EditModel : PageModel
     {
@@ -24,7 +24,7 @@ namespace RazorPagesMovie.Pages.Movies
         }
 
         [BindProperty]
-        public RazorPagesMovie.Models.Movie Movie { get; set; } = default!;
+        public Assignment9A.Models.Movie Movie { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {

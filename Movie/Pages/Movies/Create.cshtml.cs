@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using RazorPagesMovie.Data;
-using RazorPagesMovie.Models;
-using RazorPagesMovie.Utils;
+using Assignment9A.Data;
+using Assignment9A.Models;
+using Assignment9A.Utils;
 using Microsoft.AspNetCore.Hosting;
 
-namespace RazorPagesMovie.Pages.Movies
+namespace Assignment9A.Pages.Movies
 {
     public class CreateModel : PageModel
     {
@@ -30,7 +30,7 @@ namespace RazorPagesMovie.Pages.Movies
         }
 
         [BindProperty]
-        public RazorPagesMovie.Models.Movie Movie { get; set; } = default!;
+        public Assignment9A.Models.Movie Movie { get; set; } = default!;
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()

@@ -1,16 +1,16 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using RazorPagesMovie.Models;
+using Assignment9A.Models;
 
-namespace RazorPagesMovie.Data
+namespace Assignment9A.Data
 {
-    public class RazorPagesMovieContext : IdentityDbContext
+    public class Assignment9AContext : IdentityDbContext
     {
-        public RazorPagesMovieContext(DbContextOptions<RazorPagesMovieContext> options)
+        public Assignment9AContext(DbContextOptions<Assignment9AContext> options)
             : base(options)
         {
         }
 
-        public DbSet<RazorPagesMovie.Models.Movie> Movie { get; set; } = default!;
+        public DbSet<Assignment9A.Models.Movie> Movie { get; set; } = default!;
     }
 }

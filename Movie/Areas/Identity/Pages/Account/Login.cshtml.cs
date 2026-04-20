@@ -15,7 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 
-namespace RazorPagesMovie.Areas.Identity.Pages.Account
+namespace Assignment9A.Areas.Identity.Pages.Account
 {
     public class LoginModel : PageModel
     {

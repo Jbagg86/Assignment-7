@@ -1,8 +1,9 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Assignment9A.Data;
-using Assignment9A.Models;
-using Assignment9A.Utils;
+using Microsoft.Extensions.DependencyInjection;
+using RazorPagesMovie.Data;
+using RazorPagesMovie.Models;
+using RazorPagesMovie.Utils;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,29 +13,38 @@ builder.Services.AddRazorPages(options =>
     options.Conventions.AuthorizeFolder("/Movies", "AdminPolicy");
 });
 
-builder.Services.AddDbContext<Assignment9AContext>(options =>
-    options.UseSqlServer(
-        builder.Configuration.GetConnectionString("RazorPagesMovieContext")
-        ?? throw new InvalidOperationException("Connection string 'RazorPagesMovieContext' not found.")));
+builder.Services.AddDbContext<RazorPagesMovieContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("RazorPagesMovieContext") ?? throw new InvalidOperationException("Connection string 'RazorPagesMovieContext' not found.")));
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options =>
-        options.SignIn.RequireConfirmedAccount = false)
+builder.Services.AddDefaultIdentity<IdentityUser>(
+        options => options.SignIn.RequireConfirmedAccount = false)
     .AddRoles<IdentityRole>()
-    .AddEntityFrameworkStores<Assignment9AContext>();
+    .AddEntityFrameworkStores<RazorPagesMovieContext>();
 
-builder.Services.AddHttpClient<IMovieRepo, MovieRepoApi>(client =>
-{
-    var baseUrl = builder.Configuration["ApiSettings:BaseUrl"];
-    client.BaseAddress = new Uri(baseUrl!);
-});
-// builder.Services.AddSingleton<IMovieRepo, MovieRepoList>();
 
+// *** HERE ARE OUR NEW LINES ***
+builder.Services.AddScoped<IMovieRepo, MovieRepoEf>();
+//builder.Services.AddSingleton<IMovieRepo, MovieRepoList>();
+
+// add this section to configure authorization options
 builder.Services.AddAuthorization(options =>
 {
+    // in our authorization options we add a policy
+    // that requires the user to have the admin role
     options.AddPolicy("AdminPolicy", policy =>
     {
         policy.RequireRole("Admin");
     });
+});
+
+// add this section to configure options for our razor pages
+builder.Services.AddRazorPages(options =>
+{
+    // secure anything in the Pages/Items folder 
+    // by assigning it the admin policy
+    // which we created above 
+    // saying it requires a user to have the admin role
+    options.Conventions.AuthorizeFolder("/Items", "AdminPolicy");
 });
 
 var app = builder.Build();
@@ -42,6 +52,7 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
+
     SeedData.Initialize(services);
 }
 
@@ -49,6 +60,7 @@ using (var scope = app.Services.CreateScope())
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
+    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
@@ -56,12 +68,14 @@ app.UseHttpsRedirection();
 
 app.UseRouting();
 app.UseAuthentication();
+
 app.UseAuthorization();
 
 app.MapStaticAssets();
 app.MapRazorPages()
    .WithStaticAssets();
 
+// now our admin seeding code goes to this
 using (var scope = app.Services.CreateScope())
 {
     await AdminHelper.SeedAdminAsync(scope.ServiceProvider);
@@ -69,14 +83,16 @@ using (var scope = app.Services.CreateScope())
 
 using (var scope = app.Services.CreateScope())
 {
-    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    var roleManager =
+        scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
     if (!await roleManager.RoleExistsAsync("Admin"))
     {
         await roleManager.CreateAsync(new IdentityRole("Admin"));
     }
 
-    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+    var userManager =
+        scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
 
     string email = "test@test.com";
     string password = "#Password123";
@@ -89,7 +105,6 @@ using (var scope = app.Services.CreateScope())
             Email = email,
             EmailConfirmed = true
         };
-
         await userManager.CreateAsync(user, password);
         await userManager.AddToRoleAsync(user, "Admin");
     }

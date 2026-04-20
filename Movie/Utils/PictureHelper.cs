@@ -1,4 +1,4 @@
-﻿namespace Assignment9A.Utils
+﻿namespace RazorPagesMovie.Utils
 {
     public static class PictureHelper
     {

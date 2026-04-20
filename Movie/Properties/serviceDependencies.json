@@ -2,7 +2,7 @@
   "dependencies": {
     "mssql1": {
       "type": "mssql",
-      "connectionId": "ConnectionStrings:Assignment9AContext"
+      "connectionId": "ConnectionStrings:RazorPagesMovieContext"
     }
   }
 }

@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Assignment9A.Models;
+using RazorPagesMovie.Models;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Assignment9A.Models;
+namespace RazorPagesMovie.Models;
 
 public class Movie
 {

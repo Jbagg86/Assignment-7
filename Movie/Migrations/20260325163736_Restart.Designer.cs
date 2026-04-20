@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Assignment9A.Data;
+using RazorPagesMovie.Data;
 
 #nullable disable
 
-namespace Assignment9A.Migrations
+namespace RazorPagesMovie.Migrations
 {
-    [DbContext(typeof(Assignment9AContext))]
+    [DbContext(typeof(RazorPagesMovieContext))]
     [Migration("20260325163736_Restart")]
     partial class Restart
     {
@@ -227,7 +227,7 @@ namespace Assignment9A.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Assignment9A.Models.Movie", b =>
+            modelBuilder.Entity("RazorPagesMovie.Models.Movie", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

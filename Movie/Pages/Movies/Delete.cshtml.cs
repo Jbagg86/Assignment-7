@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using Assignment9A.Data;
-using Assignment9A.Models;
+using RazorPagesMovie.Data;
+using RazorPagesMovie.Models;
 
-namespace Assignment9A.Pages.Movies
+namespace RazorPagesMovie.Pages.Movies
 {
     public class DeleteModel : PageModel
     {
@@ -21,7 +21,7 @@ namespace Assignment9A.Pages.Movies
 
 
         [BindProperty]
-        public Assignment9A.Models.Movie Movie { get; set; } = default!;
+        public RazorPagesMovie.Models.Movie Movie { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {

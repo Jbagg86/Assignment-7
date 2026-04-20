@@ -4,14 +4,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Assignment9A.Data;
+using RazorPagesMovie.Data;
 
 #nullable disable
 
-namespace Assignment9A.Migrations
+namespace RazorPagesMovie.Migrations
 {
-    [DbContext(typeof(Assignment9AContext))]
-    partial class Assignment9AContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(RazorPagesMovieContext))]
+    partial class RazorPagesMovieContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -224,7 +224,7 @@ namespace Assignment9A.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Assignment9A.Models.Movie", b =>
+            modelBuilder.Entity("RazorPagesMovie.Models.Movie", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

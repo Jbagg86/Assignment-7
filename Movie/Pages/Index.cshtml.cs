@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Assignment9A.Data;
-using Assignment9A.Models;
+using RazorPagesMovie.Data;
+using RazorPagesMovie.Models;
 
-namespace Assignment9A.Pages
+namespace RazorPagesMovie.Pages
 {
     public class IndexModel : PageModel
     {
@@ -13,7 +13,7 @@ namespace Assignment9A.Pages
             _repo = repo;
         }
 
-        public IList<Assignment9A.Models.Movie> Movies { get; set; } = new List<Assignment9A.Models.Movie>();
+        public IList<RazorPagesMovie.Models.Movie> Movies { get; set; } = new List<RazorPagesMovie.Models.Movie>();
 
         public async Task OnGetAsync()
         {

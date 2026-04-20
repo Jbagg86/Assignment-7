@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using Assignment9A.Data;
-using Assignment9A.Models;
+using RazorPagesMovie.Data;
+using RazorPagesMovie.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace Assignment9A.Pages.Movies
+namespace RazorPagesMovie.Pages.Movies
 {
     public class IndexModel : PageModel
     {
@@ -20,7 +20,7 @@ namespace Assignment9A.Pages.Movies
             _repo = repo;
         }
 
-        public IList<Assignment9A.Models.Movie> Movie { get; set; } = new List<Assignment9A.Models.Movie>();
+        public IList<RazorPagesMovie.Models.Movie> Movie { get; set; } = new List<RazorPagesMovie.Models.Movie>();
 
         [BindProperty(SupportsGet = true)]
         public string? SearchString { get; set; }

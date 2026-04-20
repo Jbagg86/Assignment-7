@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Assignment9A.Migrations
+namespace RazorPagesMovie.Migrations
 {
     /// <inheritdoc />
     public partial class Restart : Migration
